@@ -35,7 +35,7 @@ public abstract class XContainer extends XNode {
       return input.elements();
     }
   };
-  
+
   private List<XNode> childNodes = new ArrayList<XNode>();
 
   protected XContainer() {}
@@ -117,15 +117,13 @@ public abstract class XContainer extends XNode {
   }
 
   public void add(Object content) {
-    if (content == null)
-      return;
     XNode node = toNode(content);
     childNodes.add(node);
     if (this instanceof XElement) {
       node.setParent((XElement) this);
     }
   }
-  
+
   private XNode toNode(Object content) {
     if (content instanceof XNode) {
       return (XNode) content;
@@ -133,15 +131,19 @@ public abstract class XContainer extends XNode {
     if (content instanceof String) {
       return new XText((String) content);
     }
+    if (content instanceof Enumerable) {
+      Enumerable e = (Enumerable) content;
+      for (Object o : e) { add(o); }
+    }
     throw new UnsupportedOperationException("Unknown content: " + content);
   }
-  
+
   public void addFirst(Object... content) {
     for (Object obj : Enumerable.create(content).reverse()) {
       addFirst(obj);
     }
   }
-  
+
   public void addFirst(Object content) {
     XNode node = toNode(content);
     childNodes.add(0, node);
