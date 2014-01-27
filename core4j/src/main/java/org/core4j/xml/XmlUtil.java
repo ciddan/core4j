@@ -9,4 +9,8 @@ public class XmlUtil {
   public static String escapeElementValue(String unescaped) {
     return unescaped.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("'", "&apos;").replace("\"", "&quot;");
   }
+
+  public static String cdataEscapeValue(String unescaped) {
+    return String.format("<![CDATA[%s]]>", unescaped);
+  }
 }
