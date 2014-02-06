@@ -109,6 +109,12 @@ public class Enumerable<T> implements Iterable<T> {
     return rt;
   }
 
+  public void forEach(Action<T> action) {
+    for (T value : values) {
+      action.run(value);
+    }
+  }
+
   public T first() {
     for (T value : values) {
       return value;

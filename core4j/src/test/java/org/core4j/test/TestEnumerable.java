@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import junit.framework.Assert;
 
+import org.core4j.Action;
 import org.core4j.Enumerable;
 import org.core4j.Enumerables;
 import org.core4j.Func;
@@ -21,6 +22,18 @@ public class TestEnumerable {
 
     Assert.assertEquals(true, Enumerable.range(1, 2).any());
     Assert.assertEquals(false, Enumerable.empty(Integer.class).any());
+
+    final Integer[] iterated = new Integer[1];
+    Enumerable<Integer> target = Enumerable.create(1);
+
+    target.forEach(new Action<Integer>() {
+      @Override
+      public void run(Integer target) {
+        iterated[0] = target;
+      }
+    });
+
+    Assert.assertEquals(iterated[0], new Integer(1));
 
     Assert.assertEquals(5, Enumerable.range(1, 5).count());
     Assert.assertEquals((Integer) 1, Enumerable.range(1, 5).first());
