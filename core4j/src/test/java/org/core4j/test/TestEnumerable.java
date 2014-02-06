@@ -19,6 +19,9 @@ public class TestEnumerable {
   @Test
   public void testEnumerable() {
 
+    Assert.assertEquals(true, Enumerable.range(1, 2).any());
+    Assert.assertEquals(false, Enumerable.empty(Integer.class).any());
+
     Assert.assertEquals(5, Enumerable.range(1, 5).count());
     Assert.assertEquals((Integer) 1, Enumerable.range(1, 5).first());
     Assert.assertEquals((Integer) 5, Enumerable.range(1, 5).last());
@@ -86,19 +89,19 @@ public class TestEnumerable {
   }
 
   private static final Func1<Integer, Integer> IDENTITY = Funcs.identity(Integer.class);
-  
+
   private static final Func1<Integer, Integer> TIMES_TWO = new Func1<Integer, Integer>() {
     public Integer apply(Integer input) {
       return input * 2;
     }
   };
-  
+
   private static final Predicate1<Integer> IS_ODD = new Predicate1<Integer>() {
     public boolean apply(Integer input) {
       return input % 2 == 1;
     }
   };
-  
+
   private static final Func1<String, Enumerable<Character>> CHARS = new Func1<String, Enumerable<Character>>() {
     public Enumerable<Character> apply(String input) {
       return Enumerables.chars(input);

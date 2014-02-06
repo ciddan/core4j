@@ -247,6 +247,10 @@ public class Enumerable<T> implements Iterable<T> {
     }
   }
 
+  public boolean any() {
+    return values.iterator().hasNext();
+  }
+
   public boolean any(Predicate1<T> predicate) {
     for (T value : values) {
       if (predicate.apply(value)) {
@@ -422,7 +426,7 @@ public class Enumerable<T> implements Iterable<T> {
 
     @Override
     protected IterationResult<T> advance() {
-      // exception-backed method 
+      // exception-backed method
       if (useEx) {
         try {
           T rt = iterator.next();
