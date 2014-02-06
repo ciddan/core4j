@@ -2,6 +2,7 @@ package org.core4j.xml;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.core4j.Enumerable;
 import org.core4j.Predicates;
@@ -99,6 +100,28 @@ public class XElement extends XContainer implements XNameable {
       sb.append('>');
     }
     return sb.toString();
+  }
+
+  public void setAttributeValue(XName attributeName, String value) {
+    for (XAttribute attribute : attributes) {
+      if (attribute.getName().equals(attributeName)) {
+        attribute.setValue(value);
+        return;
+      }
+    }
+  }
+
+  public void removeAttribute(XName attributeName) {
+    for (ListIterator<XAttribute> iterator = attributes.listIterator(attributes.size()); iterator.hasPrevious();){
+      if (iterator.previous().getName().equals(attributeName)) {
+        iterator.remove();
+        return;
+      }
+    }
+  }
+
+  public void removeAttributes() {
+    this.attributes.clear();
   }
 
   public String getValue() {
